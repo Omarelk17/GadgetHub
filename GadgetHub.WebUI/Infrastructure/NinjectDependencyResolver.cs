@@ -8,6 +8,8 @@ using System.Web.Services.Description;
 using GadgetHub.Domain.Abstract;
 using GadgetHub.Domain.Entities;
 using Moq;
+using GadgetHub.Domain.Concrete;
+
 
 
 namespace GadgetHub.WebUI.Infrastructure
@@ -31,15 +33,17 @@ namespace GadgetHub.WebUI.Infrastructure
         }
         public void AddBinding()
         {
-            Mock<IProductsRepository> myMock = new Mock<IProductsRepository>();
-            myMock.Setup(m => m.Products).Returns(new List<Product>
-            {
-                new Product {Name = "Laptop", Price = 250, Description = "i9 HP Laptop" },
-                new Product {Name = "iPhone", Price = 550, Description = "This is an iPhone 14pro" },
-                new Product {Name = "Samsung", Price = 350, Description = "This is a samsung zflip" }
-                });
-           
-            mykernel.Bind<IProductsRepository>().ToConstant(myMock.Object);
+            //Mock<IProductsRepository> myMock = new Mock<IProductsRepository>();
+            //myMock.Setup(m => m.Products).Returns(new List<Product>
+            //{
+            //    new Product {Name = "Laptop", Price = 250, Description = "i9 HP Laptop" },
+            //    new Product {Name = "iPhone", Price = 550, Description = "This is an iPhone 14pro" },
+            //    new Product {Name = "Samsung", Price = 350, Description = "This is a samsung zflip" }
+            //    });
+
+            //mykernel.Bind<IProductsRepository>().ToConstant(myMock.Object);
+
+            mykernel.Bind<IProductsRepository>().To<EFProductRepository>();
         }
      }
   }
