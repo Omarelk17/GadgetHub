@@ -1,0 +1,8 @@
+﻿@model IEnumerable<string>
+
+@foreach (var category in Model)
+{
+	<li class="nav-item">
+		@Html.ActionLink(category, "List", "Product", new { category = category }, new { @class = "nav-link" })
+	</li>
+}

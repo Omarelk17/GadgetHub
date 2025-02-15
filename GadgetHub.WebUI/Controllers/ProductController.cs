@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,31 +17,54 @@ namespace GadgetHub.WebUI.Controllers
         {
             this.myrepository = productsRepository;
         }
+        public int PageSize = 4;
 
-
-        // GET: Product
-        public int PageSize = 2;
-        public ViewResult List(int page = 1)
+        public ViewResult List(string category, int page = 1)
         {
-            // Skip(int) - ignores the specified number of items
-            //and then returns a sequence starting at the item after 
-            // last skipped item (if any)
+            var products = myrepository.Products
+                .Where(p => category == null || p.category == category)
+                .OrderBy(p => p.ProductID)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize)
+                .ToList();
+
             ProductsListViewModel model = new ProductsListViewModel
             {
-                Products = myrepository.Products.OrderBy(p => p.ProductID)
+                Products = products,
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = category == null ? myrepository.Products.Count() : myrepository.Products.Count(p => p.category == category)
+                },
+                CurrentCategory = category
+            };
+
+            return View(model);
+        }
+
+        public ViewResult Search(string query, int page = 1)
+        {
+            var products = myrepository.Products
+                .Where(p => p.Name.Contains(query) || p.Description.Contains(query))
+                .OrderBy(p => p.ProductID)
                 .Skip((page - 1) * PageSize)
-                .Take(PageSize),
+                .Take(PageSize)
+                .ToList();
 
-            PagingInfo = new PagingInfo
+            ProductsListViewModel model = new ProductsListViewModel
             {
-                CurrentPage = page,
-                ItemsPerPage = PageSize,
-                TotalItems = myrepository.Products.Count()
-            }
+                Products = products,
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = myrepository.Products.Count(p => p.Name.Contains(query) || p.Description.Contains(query))
+                },
+                CurrentCategory = null
+            };
 
-
-         };
-                return View(model);
+            return View("List", model);
         }
     }
 }

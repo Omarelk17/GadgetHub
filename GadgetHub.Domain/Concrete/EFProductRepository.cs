@@ -17,6 +17,5 @@ namespace GadgetHub.Domain.Concrete
         {
             get { return context.Products; }
         }
-
     }
 }

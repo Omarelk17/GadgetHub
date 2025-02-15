@@ -9,14 +9,15 @@
 	<div class="card p-3 bg-light text-dark mb-2">
 		<h3>
 			<strong>Name: @p.Name</strong>
-			<span class="badge bg-primary float-end">Price: @p.Price</span>
+			<span class="badge bg-primary float-end">Price: @p.Price.ToString("c")</span>
 		</h3>
-		<p><strong>Brand:</strong> @p.brand</p>
-		<p><strong>Category:</strong> @p.category</p>
-		<p><strong>Description:</strong> @p.Description</p>
+		<span class="lead">@p.Description</span>
 	</div>
 }
 
 <div>
-	@Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x }))
+	@Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { category = Model.CurrentCategory, page = x }))
 </div>
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
