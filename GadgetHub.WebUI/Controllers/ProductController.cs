@@ -17,25 +17,26 @@ namespace GadgetHub.WebUI.Controllers
         {
             this.myrepository = productsRepository;
         }
-        public int PageSize = 4;
+        public int PageSize = 2;
 
         public ViewResult List(string category, int page = 1)
         {
-            var products = myrepository.Products
+            ProductsListViewModel model = new ProductsListViewModel
+            {
+                Products = myrepository.Products
                 .Where(p => category == null || p.category == category)
                 .OrderBy(p => p.ProductID)
                 .Skip((page - 1) * PageSize)
-                .Take(PageSize)
-                .ToList();
+                .Take(PageSize),
 
-            ProductsListViewModel model = new ProductsListViewModel
-            {
-                Products = products,
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
-                    TotalItems = category == null ? myrepository.Products.Count() : myrepository.Products.Count(p => p.category == category)
+                    // TotalItems = category == null ? myrepository.Products.Count() : myrepository.Products.Count(p => p.category == category)
+                    TotalItems = category == null ?
+                    myrepository.Products.Count() :
+                    myrepository.Products.Where(e => e.category == category).Count()
                 },
                 CurrentCategory = category
             };
@@ -43,10 +44,10 @@ namespace GadgetHub.WebUI.Controllers
             return View(model);
         }
 
-        public ViewResult Search(string query, int page = 1)
+        public ViewResult Search(string query, string category, int page = 1)
         {
             var products = myrepository.Products
-                .Where(p => p.Name.Contains(query) || p.Description.Contains(query))
+                .Where(p => (p.Name.Contains(query) || p.Description.Contains(query)) && (category == null || p.category == category))
                 .OrderBy(p => p.ProductID)
                 .Skip((page - 1) * PageSize)
                 .Take(PageSize)
@@ -54,17 +55,16 @@ namespace GadgetHub.WebUI.Controllers
 
             ProductsListViewModel model = new ProductsListViewModel
             {
-                Products = products,
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
-                    TotalItems = myrepository.Products.Count(p => p.Name.Contains(query) || p.Description.Contains(query))
+                    TotalItems = myrepository.Products.Count(p => (p.Name.Contains(query) || p.Description.Contains(query)) && (category == null || p.category == category))
                 },
-                CurrentCategory = null
+                CurrentCategory = category
             };
 
-            return View("List", model);
+            return View(model);
         }
     }
 }

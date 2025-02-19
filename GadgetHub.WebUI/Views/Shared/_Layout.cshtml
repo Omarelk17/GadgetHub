@@ -1,39 +1,30 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-	<title>@ViewBag.Title - GadgetHub</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link href="~/Content/bootstrap.css" rel="stylesheet" />
-	<link href="~/Content/Site.css" rel="stylesheet" />
-	<script src="~/Scripts/modernizr-2.8.3.js"></script>
+	<title>@ViewBag.Title</title>
 </head>
+
+
 <body>
-	<div class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="@Url.Action("List", "Product")">GadgetHub</a>
-			</div>
-			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav">
-					@Html.Action("Menu", "Nav")
-				</ul>
-				<form class="navbar-form navbar-right" role="search" action="@Url.Action("Search", "Product")" method="get">
-					<div class="form-group">
-						<input type="text" name="query" class="form-control" placeholder="Search">
-					</div>
-					<button type="submit" class="btn btn-default">Search</button>
-				</form>
-			</div>
+
+	<nav class="navbar navbar-dark bg-dark">
+		<a class="navbar-brand ms-4" href="#">SPORTS STORE</a>
+	</nav>
+
+	<div class="row border p-3">
+		<div id="categories" class="col-3">
+			@Html.Action("Menu", "Nav")
+
+		</div>
+
+
+		<div class="col-8">
+			@RenderBody()
 		</div>
 	</div>
-	<div class="container body-content">
-		@RenderBody()
-		<hr />
-		<footer>
-			<p>&copy; @DateTime.Now.Year - GadgetHub</p>
-		</footer>
-	</div>
-	<script src="~/Scripts/jquery-3.3.1.js"></script>
-	<script src="~/Scripts/bootstrap.js"></script>
-	<script src="~/Scripts/respond.js"></script>
+
 </body>
 </html>
