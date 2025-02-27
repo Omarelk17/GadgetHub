@@ -1,4 +1,4 @@
-### Welcome to Gadget Hub
+# Welcome to Gadget Hub
 ---
 ## This Project was created by Omar Elkhodary
 --- 
