@@ -1,14 +1,28 @@
 ﻿@model IEnumerable<string>
-@Html.ActionLink("Home", "List", "Product", null,
-new { @class = "btn btn-outline-secondary w-100 btn-lg mb-2" })
 
-@foreach (var link in Model)
-{
-	@Html.RouteLink(link, new {
-	controller = "Product",
-	action = "List",
-	category = link,
-	Page = 1},
-	new { @class = "btn btn-outline-secondary w-100 btn-lg mb-2" + (link == ViewBag.SelectedCategory ? "active" : "") });
-
-}
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#">GADGET HUB</a>
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				@Html.ActionLink("Home", "List", "Product", null, new { @class = "nav-link active" })
+			</li>
+			@foreach (var link in Model)
+			{
+				<li class="nav-item">
+					@Html.RouteLink(link, new
+					{
+						controller = "Product",
+						action = "List",
+						category = link,
+						Page = 1
+					},
+						 new
+						 {
+							 @class = "nav-link" + (link == ViewBag.SelectedCategory ? " active" : "")
+						 })
+				</li>
+			}
+		</ul>
+	</div>
+</nav>

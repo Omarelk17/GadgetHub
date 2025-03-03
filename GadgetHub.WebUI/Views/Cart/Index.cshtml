@@ -1,5 +1,4 @@
-﻿
-@model GadgetHub.WebUI.Models.CartIndexViewModel
+﻿@model GadgetHub.WebUI.Models.CartIndexViewModel
 
 @{
 	ViewBag.Title = "Gadget Hub: Your Cart";
@@ -7,12 +6,11 @@
 
 <h2>Your Cart</h2>
 <table class="table">
-
 	<thead>
 		<tr>
 			<th>Quantity</th>
-			<th>item</th>
-			<th class="text-end">Quantity</th>
+			<th>Item</th>
+			<th>Price</th>
 			<th class="text-end">Total</th>
 		</tr>
 	</thead>
@@ -23,17 +21,20 @@
 				<td>@line.Quantity</td>
 				<td>@line.Product.Name</td>
 				<td>@line.Product.Price.ToString("c")</td>
-				<td>@line.Quantity @line.Product.Price.ToString("c")</td>
+				<td class="text-end"> @line.Product.Price.ToString("c")</td>
 			</tr>
-		;}
-</tbody>
-	<tr>
-		<td colspan="3" class="text-end">Total:</td>
-		<td class="text-end">@Model.Cart.ComputeTotalValue().ToString("c")</td>
-	</tr>
+		}
+	</tbody>
 	<tfoot>
-		<div class="text-center">
-			<a class="btn btn-primary" href="@Model.ReturnUrl">Continue shopping</a>
-		</div>
+		<tr>
+			<td colspan="3" class="text-end">Total:</td>
+			<td class="text-end">@Model.Cart.ComputeTotalValue().ToString("c")</td>
+		</tr>
+		<tr>
+			<td colspan="4" class="text-center">
+				<a class="btn btn-primary" href="@Model.ReturnUrl">Continue shopping</a>
+			</td>
+		</tr>
 	</tfoot>
 </table>
+

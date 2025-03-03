@@ -1,18 +1,28 @@
 ﻿@model GadgetHub.Domain.Entities.Product
 
-<div class="card p-3 bg-black text-light mb-2">
-	<h3>
-		<strong>@Model.Name</strong>
-		<span class="badge bg-primary float-end">
-			@Model.Price.ToString("c")
-		</span>
-	</h3>
-	<span class="lead">@Model.Description</span>
-	@using (Html.BeginForm("AddtoCart", "Cart", FormMethod.Post))
-	{
-		@Html.HiddenFor(x => x.ProductID)
-		@Html.Hidden("returnUrl", Request.Url.PathAndQuery)
-		<button type="submit" class="btn btn-outline-success"> Add to Cart </button>
-	}
-
+<div class="card h-100">
+	<!-- Product image-->
+	<img class="card-img-top" src="~/Content/images/noimage.jpg" alt="Product Image" />
+	<!-- Product details-->
+	<div class="card-body p-4">
+		<div class="text-center">
+			<!-- Product name-->
+			<h5 class="fw-bolder">@Model.Name</h5>
+			<!-- Product price-->
+			<span class="badge bg-primary fs-5 p-2">@Model.Price.ToString("c")</span>
+		</div>
+	</div>
+	<!-- Product actions-->
+	<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+		<div class="text-center">
+			@using (Html.BeginForm("AddToCart", "Cart", FormMethod.Post, new { @class = "d-flex justify-content-between align-items-center" }))
+			{
+				@Html.HiddenFor(x => x.ProductID)
+				@Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+				<button type="submit" class="btn btn-outline-dark mt-auto">
+					<i class="bi bi-cart-plus"></i> Add to Cart
+				</button>
+			}
+		</div>
+	</div>
 </div>
