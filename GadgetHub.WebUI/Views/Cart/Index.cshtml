@@ -22,6 +22,14 @@
 				<td>@line.Product.Name</td>
 				<td>@line.Product.Price.ToString("c")</td>
 				<td class="text-end"> @line.Product.Price.ToString("c")</td>
+				<td>
+					@using (Html.BeginForm("RemoveFromCart", "Cart"))
+					{
+						@Html.Hidden("productId", line.Product.ProductID)
+						@Html.Hidden("returnUrl", Model.ReturnUrl)
+						<button type="submit" class="btn btn-sm btn-danger">Remove</button>
+					}
+				</td>
 			</tr>
 		}
 	</tbody>
@@ -37,4 +45,3 @@
 		</tr>
 	</tfoot>
 </table>
-
