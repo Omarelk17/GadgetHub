@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using GadgetHub.Domain.Entities;
 
 namespace GadgetHub.WebUI.Infrastructure.Binders
@@ -11,7 +7,7 @@ namespace GadgetHub.WebUI.Infrastructure.Binders
     {
         private const string sessionKey = "Cart";
 
-        public object BindModel(ControllerContext controllerContext, ModelBindingContext modelBindingContext)
+        public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
             Cart cart = null;
             if (controllerContext.HttpContext.Session != null)

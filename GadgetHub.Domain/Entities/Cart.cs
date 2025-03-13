@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GadgetHub.Domain.Entities
 {
@@ -16,44 +13,34 @@ namespace GadgetHub.Domain.Entities
     {
         private List<CartLine> lineCollection = new List<CartLine>();
 
-        public IEnumerable<CartLine> Lines
-        {
-            get { return lineCollection; }
-        }
+        public IEnumerable<CartLine> Lines => lineCollection;
 
-        public void AddItem(Product myProduct, int myquantity)
+        public void AddItem(Product product, int quantity)
         {
             CartLine line = lineCollection
-                .Where(p => p.Product.ProductID == myProduct.ProductID)
+                .Where(p => p.Product.ProductID == product.ProductID)
                 .FirstOrDefault();
 
             if (line == null)
             {
                 lineCollection.Add(new CartLine
                 {
-                    Product = myProduct,
-                    Quantity = myquantity
+                    Product = product,
+                    Quantity = quantity
                 });
             }
             else
             {
-                line.Quantity += myquantity;
+                line.Quantity += quantity;
             }
         }
 
-        public void RemoveLine(Product myProduct)
-        {
-            lineCollection.RemoveAll(l => l.Product.ProductID == myProduct.ProductID);
-        }
+        public void RemoveLine(Product product) =>
+            lineCollection.RemoveAll(l => l.Product.ProductID == product.ProductID);
 
-        public decimal ComputeTotalValue()
-        {
-            return lineCollection.Sum(e => e.Product.Price * e.Quantity);
-        }
+        public decimal ComputeTotalValue() =>
+            lineCollection.Sum(e => e.Product.Price * e.Quantity);
 
-        public void Clear()
-        {
-            lineCollection.Clear();
-        }
+        public void Clear() => lineCollection.Clear();
     }
 }

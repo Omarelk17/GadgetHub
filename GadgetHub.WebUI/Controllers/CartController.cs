@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using GadgetHub.Domain.Abstract;
 using GadgetHub.Domain.Entities;
@@ -12,23 +9,13 @@ namespace GadgetHub.WebUI.Controllers
     public class CartController : Controller
     {
         private IProductsRepository repository;
+        private IOrderProcessor orderProcessor;
 
-        public CartController(IProductsRepository repo)
+        public CartController(IProductsRepository repo, IOrderProcessor proc)
         {
-            this.repository = repo;
+            repository = repo;
+            orderProcessor = proc;
         }
-
-        //private Cart GetCart()
-        //{
-        //    Cart cart = (Cart)Session["Cart"];
-
-        //    if (cart == null)
-        //    {
-        //        cart = new Cart();
-        //        Session["Cart"] = cart;
-        //    }
-        //    return cart;
-        //}
 
         public RedirectToRouteResult AddToCart(Cart cart, int productId, string returnUrl)
         {
@@ -59,6 +46,37 @@ namespace GadgetHub.WebUI.Controllers
                 ReturnUrl = returnUrl,
                 Cart = cart,
             });
+        }
+
+
+        public PartialViewResult Summary()
+        {
+            Cart cart = (Cart)Session["Cart"] ?? new Cart();
+            return PartialView(cart);
+        }
+
+        public ViewResult Checkout()
+        {
+            return View(new ShippingDetails());
+        }
+
+        [HttpPost]
+        public ViewResult Checkout(Cart cart, ShippingDetails shippingDetails)
+        {
+            if (cart.Lines.Count() == 0)
+            {
+                ModelState.AddModelError("", "Sorry, your cart is empty!");
+            }
+            if (ModelState.IsValid)
+            {
+                orderProcessor.ProcessOrder(cart, shippingDetails);
+                cart.Clear();
+                return View("Completed");
+            }
+            else
+            {
+                return View(shippingDetails);
+            }
         }
     }
 }
