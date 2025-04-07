@@ -1,6 +1,8 @@
 # Welcome to Gadget Hub
 [Research and Development 2](https://github.com/Omarelk17/GadgetHub/blob/main/ResearchandDev.md)
+---
 [Homework 3]
+---
 [Lab 3]
 ---
 ### This Project was created by Omar Elkhodary
