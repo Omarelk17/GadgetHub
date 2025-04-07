@@ -24,7 +24,7 @@ namespace GadgetHub.WebUI.Controllers
             ProductsListViewModel model = new ProductsListViewModel
             {
                 Products = myrepository.Products
-                .Where(p => category == null || p.category == category)
+                .Where(p => category == null || p.Category == category)
                 .OrderBy(p => p.ProductID)
                 .Skip((page - 1) * PageSize)
                 .Take(PageSize),
@@ -36,7 +36,7 @@ namespace GadgetHub.WebUI.Controllers
                     // TotalItems = category == null ? myrepository.Products.Count() : myrepository.Products.Count(p => p.category == category)
                     TotalItems = category == null ?
                     myrepository.Products.Count() :
-                    myrepository.Products.Where(e => e.category == category).Count()
+                    myrepository.Products.Where(e => e.Category == category).Count()
                 },
                 CurrentCategory = category
             };
@@ -47,7 +47,7 @@ namespace GadgetHub.WebUI.Controllers
         public ViewResult Search(string query, string category, int page = 1)
         {
             var products = myrepository.Products
-                .Where(p => (p.Name.Contains(query) || p.Description.Contains(query)) && (category == null || p.category == category))
+                .Where(p => (p.Name.Contains(query) || p.Description.Contains(query)) && (category == null || p.Category == category))
                 .OrderBy(p => p.ProductID)
                 .Skip((page - 1) * PageSize)
                 .Take(PageSize)
@@ -59,7 +59,7 @@ namespace GadgetHub.WebUI.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
-                    TotalItems = myrepository.Products.Count(p => (p.Name.Contains(query) || p.Description.Contains(query)) && (category == null || p.category == category))
+                    TotalItems = myrepository.Products.Count(p => (p.Name.Contains(query) || p.Description.Contains(query)) && (category == null || p.Category == category))
                 },
                 CurrentCategory = category
             };

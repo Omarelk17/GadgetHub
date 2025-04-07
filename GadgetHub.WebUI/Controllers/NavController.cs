@@ -21,7 +21,7 @@ namespace GadgetHub.WebUI.Controllers
             ViewBag.SelectedCategory = category;
 
             IEnumerable<string> categories = repository.Products
-                .Select(x => x.category)
+                .Select(x => x.Category)
                 .Distinct()
                 .OrderBy(x => x);
 

@@ -1,0 +1,56 @@
+﻿@model GadgetHub.Domain.Entities.Product
+@{
+	ViewBag.Title = "Edit";
+	Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<div class="container mt-5">
+	<div class="card border border-primary p-4 rounded shadow">
+		<div class="card-body">
+			<h2 class="card-title">Edit @Model.Name</h2>
+			@using (Html.BeginForm(Model.ProductID == 0 ? "Create" : "Edit", "Admin"))
+			{
+				@Html.HiddenFor(m => m.ProductID)
+				<div class="mb-3">
+					@Html.LabelFor(m => m.Name)
+					@Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+				</div>
+				<div class="mb-3">
+					@Html.LabelFor(m => m.Brand)
+					@Html.EditorFor(m => m.Brand, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(m => m.Brand, "", new { @class = "text-danger" })
+				</div>
+				<div class="mb-3">
+					@Html.LabelFor(m => m.Description)
+					@Html.EditorFor(m => m.Description, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+				</div>
+				<div class="mb-3">
+					@Html.LabelFor(m => m.Price)
+					@Html.EditorFor(m => m.Price, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(m => m.Price, "", new { @class = "text-danger" })
+				</div>
+				<div class="mb-3">
+					@Html.LabelFor(m => m.Category)
+					@Html.EditorFor(m => m.Category, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(m => m.Category, "", new { @class = "text-danger" })
+				</div>
+				<div class="mb-3">
+					<input type="submit" value="Save" class="btn btn-primary" />
+				</div>
+				<div class="mb-3">
+					<a href="http://localhost:50547/admin/index" class="btn btn-secondary">Cancel</a>
+				</div>
+			}
+			@if (Model.ProductID != 0)
+			{
+				using (Html.BeginForm("Delete", "Admin", new { productID = Model.ProductID }, FormMethod.Post))
+				{
+					@Html.HiddenFor(m => m.ProductID)
+					<input type="submit" value="Delete" class="btn btn-danger" />
+				}
+			}
+		</div>
+	</div>
+</div>

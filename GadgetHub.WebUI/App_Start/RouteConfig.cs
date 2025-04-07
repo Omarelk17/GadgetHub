@@ -35,11 +35,28 @@ namespace GadgetHub.WebUI
                 defaults: new { controller = "Product", action = "Search" }
             );
 
-            // Ensure this route for CartController's Checkout action
             routes.MapRoute(
                 name: "Checkout",
                 url: "Order/Checkout",
                 defaults: new { controller = "Cart", action = "Checkout" }
+            );
+
+            routes.MapRoute(
+                name: "Delete",
+                url: "admin/Delete/{id}",
+                defaults: new { controller = "Admin", action = "Delete", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "Edit",
+                url: "admin/Edit/{id}",
+                defaults: new { controller = "Admin", action = "Edit", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "Create",
+                url: "admin/Create",
+                defaults: new { controller = "Admin", action = "Create" }
             );
         }
     }

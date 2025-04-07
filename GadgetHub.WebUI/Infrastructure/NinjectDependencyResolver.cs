@@ -33,10 +33,10 @@ namespace GadgetHub.WebUI.Infrastructure
         }
         public void AddBinding()
         {
-            mykernel.Bind<IProductsRepository>().To<EFProductRepository>();
+            mykernel.Bind<IProductsRepository>().To<GadgetHub.Domain.Concrete.EFProductRepository>();
             EmailSettings emailSettings = new EmailSettings
             {
-              WriteAsFile = bool.Parse
+                WriteAsFile = bool.Parse
               (ConfigurationManager.AppSettings["Email.WriteAsFile"] ?? "false")
             };
             mykernel.Bind<IOrderProcessor>()
