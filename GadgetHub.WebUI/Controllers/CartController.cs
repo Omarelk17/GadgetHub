@@ -48,7 +48,6 @@ namespace GadgetHub.WebUI.Controllers
             });
         }
 
-
         public PartialViewResult Summary()
         {
             Cart cart = (Cart)Session["Cart"] ?? new Cart();
@@ -61,7 +60,7 @@ namespace GadgetHub.WebUI.Controllers
         }
 
         [HttpPost]
-        public ViewResult Checkout(Cart cart, ShippingDetails shippingDetails)
+        public ActionResult Checkout(Cart cart, ShippingDetails shippingDetails)
         {
             if (cart.Lines.Count() == 0)
             {
@@ -71,12 +70,17 @@ namespace GadgetHub.WebUI.Controllers
             {
                 orderProcessor.ProcessOrder(cart, shippingDetails);
                 cart.Clear();
-                return View("Completed");
+                return RedirectToAction("Completed", shippingDetails);
             }
             else
             {
                 return View(shippingDetails);
             }
+        }
+
+        public ViewResult Completed(ShippingDetails shippingDetails)
+        {
+            return View(shippingDetails);
         }
     }
 }
