@@ -1,9 +1,9 @@
 # Welcome to Gadget Hub
 [Research and Development 2](https://github.com/Omarelk17/GadgetHub/blob/main/ResearchandDev.md)
 ---
-[Homework 3]
+[Homework 3](https://github.com/Omarelk17/GadgetHub/blob/main/Homework3.md)
 ---
-[Lab 3]
+[Lab 3](https://github.com/Omarelk17/GadgetHub/blob/main/Lab-03.md)
 ---
 ### This Project was created by Omar Elkhodary
 ### Created using C# using Bootstrap 5
