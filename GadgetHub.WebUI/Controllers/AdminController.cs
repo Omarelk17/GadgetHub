@@ -9,6 +9,7 @@ using GadgetHub.Domain.Entities;
 
 namespace GadgetHub.WebUI.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         private IProductsRepository repository;
@@ -53,7 +54,7 @@ namespace GadgetHub.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Product product)
+        public ActionResult Edit(Product product, HttpPostedFileBase image=null)
         {
             if (repository.Products.Any(p => p.ProductID == product.ProductID))
             {

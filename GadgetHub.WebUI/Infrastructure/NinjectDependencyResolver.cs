@@ -10,7 +10,9 @@ using GadgetHub.Domain.Entities;
 using Moq;
 using GadgetHub.Domain.Concrete;
 using System.Configuration;
-using static GadgetHub.Domain.Concrete.EmailOrderProcessor; // Add this using directive
+using GadgetHub.WebUI.Infrastructure.Abstract;
+using GadgetHub.WebUI.Infrastructure.Concrete;
+using static GadgetHub.Domain.Concrete.EmailOrderProcessor; 
 
 namespace GadgetHub.WebUI.Infrastructure
 {
@@ -42,6 +44,9 @@ namespace GadgetHub.WebUI.Infrastructure
             mykernel.Bind<IOrderProcessor>()
                 .To<EmailOrderProcessor>()
                 .WithConstructorArgument("settings", emailSettings);
+
+            //Authentication
+            mykernel.Bind<IAuthProvider>().To<FormsAuthProvider>();
         }
     }
 }

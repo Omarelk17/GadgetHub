@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = null;
+	Layout = null;
 }
 
 <!DOCTYPE html>
@@ -12,14 +12,54 @@
 	<title>@ViewBag.Title</title>
 </head>
 <body>
-    <div>
+	<div class="container mt-3">
 		@if (TempData["message"] != null)
-			{
-				<div class="alert alert-success">
-					@TempData["message"]
+		{
+			<div class="alert alert-success">
+				@TempData["message"]
+			</div>
+		}
+		@RenderBody()
+	</div>
+
+	<!-- Bootstrap Modals -->
+	<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="confirmModalLabel">Confirmation</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 				</div>
-			}
-        @RenderBody()
-    </div>
+				<div class="modal-body">
+					Are you sure you want to proceed?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary" id="confirmBtn">Confirm</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+	<script src="~/Scripts/bootstrap.min.js"></script>
+	<script src="~/Scripts/jquery.validate.min.js"></script>
+	<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+	<script>
+        $(document).ready(function () {
+            // Handle form submissions with confirmation
+            $('form').submit(function (e) {
+                var form = this;
+                e.preventDefault();
+                $('#confirmModal').modal('show');
+                $('#confirmBtn').click(function () {
+                    form.submit();
+                });
+            });
+        });
+	</script>
 </body>
 </html>
+

@@ -1,56 +1,78 @@
 ﻿@model GadgetHub.Domain.Entities.Product
 @{
+	var operationText = ViewBag.operation == "create" ? "Add New Product" : "Edit " + Model.Name;
+}
+
+@{
 	ViewBag.Title = "Edit";
 	Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
-<div class="container mt-5">
-	<div class="card border border-primary p-4 rounded shadow">
-		<div class="card-body">
-			<h2 class="card-title">Edit @Model.Name</h2>
-			@using (Html.BeginForm(Model.ProductID == 0 ? "Create" : "Edit", "Admin"))
-			{
+<div class="container mt-3">
+	<div class="card">
+		<div class="card-header">
+			<h3>@operationText</h3>
+		</div>
+		@using (Html.BeginForm("Edit", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+		{
+			<div class="card-body">
 				@Html.HiddenFor(m => m.ProductID)
+
 				<div class="mb-3">
-					@Html.LabelFor(m => m.Name)
+					@Html.LabelFor(m => m.Name, new { @class = "form-label" })
 					@Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
 					@Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
 				</div>
 				<div class="mb-3">
-					@Html.LabelFor(m => m.Brand)
+					@Html.LabelFor(m => m.Brand, new { @class = "form-label" })
 					@Html.EditorFor(m => m.Brand, new { htmlAttributes = new { @class = "form-control" } })
 					@Html.ValidationMessageFor(m => m.Brand, "", new { @class = "text-danger" })
 				</div>
 				<div class="mb-3">
-					@Html.LabelFor(m => m.Description)
-					@Html.EditorFor(m => m.Description, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.LabelFor(m => m.Description, new { @class = "form-label" })
+					@Html.TextAreaFor(m => m.Description, new { @class = "form-control", rows = 5 })
 					@Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
 				</div>
 				<div class="mb-3">
-					@Html.LabelFor(m => m.Price)
+					@Html.LabelFor(m => m.Price, new { @class = "form-label" })
 					@Html.EditorFor(m => m.Price, new { htmlAttributes = new { @class = "form-control" } })
 					@Html.ValidationMessageFor(m => m.Price, "", new { @class = "text-danger" })
 				</div>
 				<div class="mb-3">
-					@Html.LabelFor(m => m.Category)
+					@Html.LabelFor(m => m.Category, new { @class = "form-label" })
 					@Html.EditorFor(m => m.Category, new { htmlAttributes = new { @class = "form-control" } })
 					@Html.ValidationMessageFor(m => m.Category, "", new { @class = "text-danger" })
 				</div>
 				<div class="mb-3">
-					<input type="submit" value="Save" class="btn btn-primary" />
+					<label class="form-label">Image</label>
+					<div style="position:relative;">
+						<a class="btn btn-secondary" href="javascript:;">
+							Choose File
+							<input type="file" name="Image" size="40"
+								   style="position:absolute;z-index:2;top:0;
+                                          left:0;opacity:0;
+                                          background-color:transparent;color:transparent;"
+								   onchange='$("#upload-file-info").html($(this).val());' />
+						</a>
+						<span class="form-label label-info" id="upload-file-info"></span>
+					</div>
+
+					@if (Model.ImageData == null)
+					{
+						<div class="form-text">No Image</div>
+					}
+					else
+					{
+						<img class="img-thumbnail" width="150" height="150"
+							 src='@Url.Action("GetImage", "Product", new { Model.ProductID })' />
+					}
 				</div>
-				<div class="mb-3">
-					<a href="http://localhost:50547/admin/index" class="btn btn-secondary">Cancel</a>
-				</div>
-			}
-			@if (Model.ProductID != 0)
-			{
-				using (Html.BeginForm("Delete", "Admin", new { productID = Model.ProductID }, FormMethod.Post))
-				{
-					@Html.HiddenFor(m => m.ProductID)
-					<input type="submit" value="Delete" class="btn btn-danger" />
-				}
-			}
-		</div>
+			</div>
+
+			<div class="card-footer">
+				<input type="submit" value="Save" class="btn btn-primary" />
+				@Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-warning" })
+			</div>
+		}
 	</div>
 </div>
