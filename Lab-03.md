@@ -1,6 +1,7 @@
 # Lab 03
 ### Solution Explorer 
 ![image](https://github.com/user-attachments/assets/fd4043e7-8a6e-4b1e-b93c-13e09d4306c2)
+---
 ![image](https://github.com/user-attachments/assets/ef05da7c-cf55-4628-842e-56bfd8ea0d3d)
 ### Admin Index View 
 ![image](https://github.com/user-attachments/assets/6d9f5623-599f-4340-9dcc-7000fc0e633d)
