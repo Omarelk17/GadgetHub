@@ -4,14 +4,14 @@
 }
 
 @{
-	ViewBag.Title = "Edit";
+	ViewBag.Title = "Admin: Edit" + Model.Name;
 	Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
 <div class="container mt-3">
 	<div class="card">
 		<div class="card-header">
-			<h3>@operationText</h3>
+			<h3>@Model.Name  </h3>
 		</div>
 		@using (Html.BeginForm("Edit", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 		{
@@ -68,10 +68,20 @@
 					}
 				</div>
 			</div>
-
 			<div class="card-footer">
+				
+				@if (Model.ProductID != 0)
+				{
+					using (Html.BeginForm("Delete", "Admin", new { productID = Model.ProductID }, FormMethod.Post))
+					{
+						@Html.HiddenFor(m => m.ProductID)
+						<input type="submit" value="Delete" class="btn btn-danger" />
+					}
+				}
+
 				<input type="submit" value="Save" class="btn btn-primary" />
 				@Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-warning" })
+
 			</div>
 		}
 	</div>
