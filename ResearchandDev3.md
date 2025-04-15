@@ -7,14 +7,9 @@
 ###  Unauthorized users are blocked with Invalid credentials
 ![image](https://github.com/user-attachments/assets/1ea77a6b-00de-464e-a6c1-ad893ff17dfb)
 ---
-### Forms Authentication – Successful login
-
---- 
-
 ### Image Uploads 
-
+![image](https://github.com/user-attachments/assets/bbdd5d5c-53f3-480f-a6f9-2f136f904757)
 ---
-
 ### Image Display
-
+![image](https://github.com/user-attachments/assets/7376fcd5-c9b1-433a-b223-5043d83ae03c)
 ---
