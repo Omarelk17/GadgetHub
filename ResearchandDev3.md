@@ -1,5 +1,10 @@
 # ResearchandDev3.md 
+--- 
+### Solution Explorer 
 
+---
+
+---
 ### Admin Panel – Unauthorized users are blocked
 
 ---
