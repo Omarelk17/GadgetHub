@@ -5,7 +5,7 @@
 ---
 [Lab 3](https://github.com/Omarelk17/GadgetHub/blob/main/Lab-03.md) 
 ---
-[Research and Development - 03](https://github.com/Omarelk17/GadgetHub/blob/main/ResearchandDev3.md) 
+[Research and Development 3](https://github.com/Omarelk17/GadgetHub/blob/main/ResearchandDev3.md) 
 ### This Project was created by Omar Elkhodary
 ### Created using C# using Bootstrap 5
 ---
