@@ -1,6 +1,5 @@
 # ResearchandDev3.md 
---- 
-### Solution Explorer 
+### Solution Explorer Screenshots
 
 ---
 
