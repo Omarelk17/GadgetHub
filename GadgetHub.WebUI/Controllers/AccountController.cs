@@ -30,6 +30,7 @@ namespace GadgetHub.WebUI.Controllers
             {
                 if (authProvider.Authenticate(model.Username, model.Password))
                 {
+                    TempData["message"] = "Login successful!";
                     return Redirect(returnUrl ?? Url.Action("Index", "Admin"));
                 }
                 else

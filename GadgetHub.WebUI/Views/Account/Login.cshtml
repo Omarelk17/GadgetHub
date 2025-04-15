@@ -10,17 +10,19 @@
 		</p>
 		@using (Html.BeginForm())
 		{
-			@Html.ValidationSummary()
+			@Html.ValidationSummary(false, "", new { @class = "alert alert-danger" })
 			<div class="mb-3">
 				<label for="Username" class="form-label">User Name: </label>
 				@Html.TextBoxFor(mbox => mbox.Username, new { @class = "form-control", id = "Username" })
 			</div>
 
 			<div class="mb-3">
-				<label for="Password" type="password" class="form-label">Password: </label>
+				<label for="Password" class="form-label">Password: </label>
 				@Html.PasswordFor(mbox => mbox.Password, new { @class = "form-control", id = "Password" })
 			</div>
 			<button type="submit" class="btn btn-primary">Log in</button>
 		}
 	</div>
 </div>
+
+

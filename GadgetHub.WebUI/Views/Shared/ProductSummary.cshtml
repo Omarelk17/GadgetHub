@@ -2,12 +2,14 @@
 
 <div class="card h-100">
 	<!-- Product image-->
-	<img class="card-img-top" src="~/Content/images/noimage.jpg" alt="Product Image" />
+	<img class="card-img-top mx-auto d-block" src="@(Model.ImageData != null ? Url.Action("GetImage", "Product", new { Model.ProductID }) : Url.Content("~/Content/images/noimage.jpg"))" alt="Product Image" style="max-width: 100%; height: auto;" />
 	<!-- Product details-->
 	<div class="card-body p-4">
 		<div class="text-center">
 			<!-- Product name-->
 			<h5 class="fw-bolder">@Model.Name</h5>
+			<!-- Product description-->
+			<p class="card-text">@Model.Description</p>
 			<!-- Product price-->
 			<span class="badge bg-primary fs-5 p-2">@Model.Price.ToString("c")</span>
 		</div>
@@ -26,3 +28,5 @@
 		</div>
 	</div>
 </div>
+
+
